@@ -1,16 +1,17 @@
 package com.thoughtworks.interview.model;
 
+import java.time.Instant;
+
 import static com.thoughtworks.interview.util.ReflectionBuilder.builderFor;
 
 public class Proposal {
 
     private String title;
-    private String duration;
-    private ProposalType proposalType;
+    private Instant duration;
 
     public interface ProposalBuilder {
         ProposalBuilder title(String title);
-        ProposalBuilder duration(String duration);
+        ProposalBuilder duration(Instant duration);
         Proposal build();
     }
 
@@ -22,7 +23,7 @@ public class Proposal {
         return title;
     }
 
-    public String getDuration() {
+    public Instant getDuration() {
         return duration;
     }
 
