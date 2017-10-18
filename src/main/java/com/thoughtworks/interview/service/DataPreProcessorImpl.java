@@ -3,6 +3,7 @@ package com.thoughtworks.interview.service;
 import com.thoughtworks.interview.ApplicationMain;
 import com.thoughtworks.interview.model.Proposal;
 import com.thoughtworks.interview.model.ProposalType;
+import com.thoughtworks.interview.util.ApplicationUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -11,6 +12,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.time.Instant;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -37,7 +39,7 @@ public class DataPreProcessorImpl implements DataPreprocessor {
     private Proposal proposal(String dataPoint) {
 
         String title = dataPoint;
-        Instant duration = null;
+        long duration = 0;
 
         Optional<ProposalType> type = ProposalType.type(dataPoint);
         if (type.isPresent()) {
@@ -45,7 +47,7 @@ public class DataPreProcessorImpl implements DataPreprocessor {
         } else if(dataPoint.contains(MIN)) {
             title = dataPoint.substring(0, dataPoint.lastIndexOf(" "));
             Integer time = Integer.parseInt(dataPoint.substring(dataPoint.lastIndexOf(" ") + 1).replaceAll(MIN, ""));
-            duration = Instant.ofEpochSecond(time*60);
+            duration = time;
         } else {
             logger.info("Invalid data {}", dataPoint);
         }

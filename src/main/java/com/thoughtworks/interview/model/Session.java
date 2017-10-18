@@ -1,17 +1,18 @@
 package com.thoughtworks.interview.model;
 
-import java.time.Instant;
 
 import static com.thoughtworks.interview.util.ReflectionBuilder.builderFor;
 
 public class Session {
 
     private String title;
-    private String time;
+    private String startTime;
+    private long duration;
 
     public interface SessionBuilder {
         SessionBuilder title(String title);
-        SessionBuilder time(String time);
+        SessionBuilder duration(long duration);
+        SessionBuilder startTime(String startTime);
         Session build();
     }
 
@@ -23,8 +24,12 @@ public class Session {
         return title;
     }
 
-    public String getTime() {
-        return time;
+    public String getStartTime() {
+        return startTime;
+    }
+
+    public long getDuration() {
+        return duration;
     }
 }
 

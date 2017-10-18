@@ -2,9 +2,8 @@ package com.thoughtworks.interview;
 
 import com.thoughtworks.interview.config.ApplicationConfig;
 import com.thoughtworks.interview.model.Proposal;
-import com.thoughtworks.interview.model.ProposalType;
-import com.thoughtworks.interview.service.DataPreProcessorImpl;
-import com.thoughtworks.interview.service.DataPreprocessor;
+import com.thoughtworks.interview.model.Tracks;
+import com.thoughtworks.interview.service.*;
 import io.advantageous.config.Config;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,25 +11,24 @@ import org.springframework.util.ResourceUtils;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.time.Instant;
 import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 
 public class ApplicationMain {
 
     private static final Logger logger = LoggerFactory.getLogger(ApplicationMain.class);
 
-
     public static void main(String[] args) {
         DataPreprocessor main = new DataPreProcessorImpl();
         List<Proposal> proposals = main.loadProposals(loadInputFile());
-        proposals.forEach(l -> System.out.println(l.getTitle() + " = " +l.getDuration()));
+        TrackManager manager = new TrackManagerImpl();
+        Tracks tracks = manager.getTracks(proposals);
+        tracks.getTracks().stream().forEach(t -> {
+            System.out.printf(t.getTrackCode() +": \n");
+            t.getSession().stream().forEach(session ->
+                    System.out.printf(session.getStartTime() +" "+ session.getTitle()+"\n"));
+            System.out.printf("\n");
+        });
     }
 
 

@@ -1,18 +1,24 @@
 package com.thoughtworks.interview.model;
 
+import com.thoughtworks.interview.util.ApplicationUtil;
+
 import javax.swing.text.html.Option;
 import java.time.Instant;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.Optional;
 
 public enum  ProposalType {
 
-    LIGHTENING("lightning", Instant.ofEpochSecond(5*60));
+    LIGHTENING("lightning", 5);
 
     private final String type;
-    private final Instant duration;
+    private final long duration;
 
-    ProposalType(String type, Instant duration) {
+    ProposalType(String type, long duration) {
         this.type = type;
         this.duration = duration;
     }
@@ -26,7 +32,7 @@ public enum  ProposalType {
         return type;
     }
 
-    public Instant getDuration() {
+    public long getDuration() {
         return duration;
     }
 }
