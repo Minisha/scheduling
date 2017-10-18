@@ -1,5 +1,6 @@
 package com.thoughtworks.interview.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static com.thoughtworks.interview.util.ReflectionBuilder.builderFor;
@@ -24,6 +25,6 @@ public class Track {
     }
 
     public List<Session> getSession() {
-        return session;
+        return session == null ? new ArrayList<>() : session;
     }
 }

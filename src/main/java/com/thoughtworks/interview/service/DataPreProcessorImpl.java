@@ -28,7 +28,8 @@ public class DataPreProcessorImpl implements DataPreprocessor {
     public List<Proposal> loadProposals(File file) {
         List<Proposal> proposals;
         try (Stream<String> stream = Files.lines(Paths.get(file.getAbsolutePath()))) {
-            proposals = stream.map(l -> proposal(l)).collect(Collectors.toList());
+            proposals = stream.filter(d ->  !ApplicationUtil.containsSpecialCharacter(d))
+                    .map(l -> proposal(l)).collect(Collectors.toList());
 
         } catch (IOException e) {
             throw new RuntimeException(e.getMessage());
@@ -37,7 +38,6 @@ public class DataPreProcessorImpl implements DataPreprocessor {
     }
 
     private Proposal proposal(String dataPoint) {
-
         String title = dataPoint;
         long duration = 0;
 
@@ -45,7 +45,6 @@ public class DataPreProcessorImpl implements DataPreprocessor {
         if (type.isPresent()) {
             duration = type.get().getDuration();
         } else if(dataPoint.contains(MIN)) {
-            title = dataPoint.substring(0, dataPoint.lastIndexOf(" "));
             Integer time = Integer.parseInt(dataPoint.substring(dataPoint.lastIndexOf(" ") + 1).replaceAll(MIN, ""));
             duration = time;
         } else {

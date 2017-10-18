@@ -23,10 +23,11 @@ public class ApplicationMain {
         List<Proposal> proposals = main.loadProposals(loadInputFile());
         TrackManager manager = new TrackManagerImpl();
         Tracks tracks = manager.getTracks(proposals);
+
         tracks.getTracks().stream().forEach(t -> {
             System.out.printf(t.getTrackCode() +": \n");
             t.getSession().stream().forEach(session ->
-                    System.out.printf(session.getStartTime() +" "+ session.getTitle()+"\n"));
+                    System.out.printf(session.getStartTime() +" "+ session.getTitle() +"\n"));
             System.out.printf("\n");
         });
     }

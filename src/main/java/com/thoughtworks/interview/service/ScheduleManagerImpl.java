@@ -9,14 +9,11 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 import static java.time.temporal.ChronoUnit.MINUTES;
 
 public class ScheduleManagerImpl implements ScheduleManager {
 
-    public  final String LUNCH = "Lunch";
-    public  final String NETWORKING = "Networking";
     private final LocalTime morningStartTime = LocalTime.of(9, 0);
     private final LocalTime morningEndTime = LocalTime.of(12, 0);
 
@@ -47,12 +44,12 @@ public class ScheduleManagerImpl implements ScheduleManager {
 
 
     private List<Session> getMorningSessions(List<Proposal> proposals) {
-        return schedule(morningStartTime, morningEndTime, proposals);
+        return ApplicationUtil.sort(schedule(morningStartTime, morningEndTime, proposals));
     }
 
 
     private List<Session> getNoonSessions(List<Proposal> proposals) {
-        return schedule(noonStartTime, noonEndTime, proposals);
+        return ApplicationUtil.sort(schedule(noonStartTime, noonEndTime, proposals));
     }
 
 

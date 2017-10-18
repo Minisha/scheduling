@@ -1,5 +1,6 @@
 package com.thoughtworks.interview.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static com.thoughtworks.interview.util.ReflectionBuilder.builderFor;
@@ -18,6 +19,6 @@ public class Tracks {
     }
 
     public List<Track> getTracks() {
-        return tracks;
+        return (tracks == null)? new ArrayList<>() : tracks;
     }
 }
